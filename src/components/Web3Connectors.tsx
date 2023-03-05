@@ -18,7 +18,7 @@ function Connector({ web3Connector }: { web3Connector: Web3Connector }) {
   return (
     <div >
       
-      <button onClick={onClick} className={stylesHome.btnconnect}>{isActive ? 'Disconnect' : 'Connect'}</button>
+      <button onClick={onClick} className={stylesHome.btnconnect}><label>{getConnectorName(connector)}</label></button>
       
     </div>
   )
