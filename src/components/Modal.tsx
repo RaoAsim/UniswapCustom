@@ -4,6 +4,7 @@ import { RiCloseLine } from "react-icons/ri";
 import Web3Connectors from './Web3Connectors';
 interface ModalProps{
     setIsOpen:Dispatch<SetStateAction<boolean>>
+    setIsConnected:Dispatch<SetStateAction<boolean>>
 }
 export default function Modal(props:ModalProps) {
     return (
@@ -19,7 +20,7 @@ export default function Modal(props:ModalProps) {
                     <RiCloseLine style={{ marginBottom: "-3px" }} />
                   </button>
                   <div className={styles.modalContent}>
-                  <Web3Connectors />
+                  <Web3Connectors setIsConnected={props.setIsConnected} setIsOpen={props.setIsOpen} />
                   </div>
                   
                 </div>

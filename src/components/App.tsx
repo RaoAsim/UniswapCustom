@@ -5,19 +5,18 @@ import {  SwapWidget,Theme } from '@uniswap/widgets'
 import '@uniswap/widgets/fonts.css'
 // ↑↑↑
 
-import { useActiveProvider } from '../connectors'
+import { useActiveProvider, Web3Connector } from '../connectors'
 import { JSON_RPC_URL } from '../constants'
 import bg from '../assests/bg.png'
 import logo from '../assests/R.jpg'
 import Web3Connectors from './Web3Connectors'
 import styles from '../styles/Home.module.css'
 import Modal from './Modal'
-
 const TOKEN_LIST = 'https://gateway.ipfs.io/ipns/tokens.uniswap.org'
 const UNI = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
 
 export default function App() {
-
+const [isConnected,setIsConnected]=useState<boolean>(false)
   const connectors = useRef<HTMLDivElement>(null)
   const focusConnectors = useCallback(() => connectors.current?.focus(), [])
   const theme: Theme = {
@@ -40,11 +39,10 @@ const[modalOpen,setModalOpen]=useState<boolean>(false)
       <div className={styles.i18n}>
       <img src={logo} height="50px" width={"50px"} style={{borderRadius:"8px"}} alt="logo"/>
       <button className={styles.btnconnect} onClick={()=>setModalOpen(true)}>
-        Connect Wallet
+       {isConnected?"Connected" :"Connect Wallet"}
       </button>
       </div>
       <main className={styles.main}>
-      {modalOpen && <Modal setIsOpen={setModalOpen} />}
         <div className={styles.demo}>
  
           <div className={styles.widget}>
@@ -57,13 +55,14 @@ const[modalOpen,setModalOpen]=useState<boolean>(false)
               defaultInputTokenAddress="NATIVE"
               defaultInputAmount="1"
               defaultOutputTokenAddress={UNI}
+              
             />
           </div>
         </div>
       </main>
     
       </div>
-      {modalOpen && <Modal setIsOpen={setModalOpen} />}
+      {modalOpen  && <Modal setIsOpen={setModalOpen} setIsConnected={setIsConnected}/>}
       </div>
   )
 }
